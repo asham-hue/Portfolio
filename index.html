@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Asham Haider — AI / ML Engineer</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=Cormorant+Garamond:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root {
   --bg: #0a0f1a;
@@ -24,7 +25,7 @@
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'Cormorant Garamond', serif; overflow-x: hidden; }
+body { background: #050d18; color: var(--text); font-family: 'Cormorant Garamond', serif; overflow-x: hidden; }
 
 /* Subtle grain texture */
 body::after {
@@ -454,9 +455,36 @@ footer {
   .gallery-grid { grid-template-columns:1fr 1fr; }
   .gallery-wrap { padding:0 28px; }
 }
+
+/* 3D BACKGROUND */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Move to 0 but keep sections at higher z-index if needed, or make sections transparent */
+  pointer-events: none;
+  opacity: 1;
+}
+
+section, .gallery-section, footer {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
+
+.hero-card, .project-card, .skill-category, .contact-info, .contact-form {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.2s ease-out, box-shadow 0.3s;
+}
+
 </style>
 </head>
 <body>
+  <canvas id="bg-canvas"></canvas>
+
 
 <nav>
   <div class="nav-logo">A · H</div>
@@ -510,9 +538,9 @@ footer {
       <div class="card-divider"></div>
 
       <div class="card-stats">
-        <div class="stat-box"><div class="stat-val">3</div><div class="stat-label">Projects</div></div>
-        <div class="stat-box"><div class="stat-val">7+</div><div class="stat-label">ML Models</div></div>
-        <div class="stat-box"><div class="stat-val">0.91</div><div class="stat-label">Best R²</div></div>
+        <div class="stat-box"><div class="stat-val">10+</div><div class="stat-label">Projects</div></div>
+        <div class="stat-box"><div class="stat-val">15+</div><div class="stat-label">ML Models</div></div>
+        <div class="stat-box"><div class="stat-val">0.93</div><div class="stat-label">Best R²</div></div>
         <div class="stat-box"><div class="stat-val">97%</div><div class="stat-label">NIDS Acc.</div></div>
       </div>
       <div class="card-info">
@@ -533,9 +561,8 @@ footer {
     <h2 class="section-title">The Mind Behind<br>the <em>Machine</em></h2>
     <div class="about-grid">
       <div class="about-text fade-in">
-        <p>I'm Asham Haider — an AI/ML Engineer with a sharp focus on building intelligent systems that solve real problems. Currently pursuing my BS in Computer Science with an AI Specialization at PMAS-AAUR (2023–2027), I've already delivered end-to-end ML pipelines across finance, real estate, and cybersecurity.</p>
-        <p>Certified by NAVTC through Corvit Systems as an AI/ML Engineer (2026), my expertise spans the full machine learning lifecycle — from EDA and feature engineering to model training, hyperparameter tuning, and SHAP-based explainability.</p>
-        <p>Driven by curiosity and precision, I thrive on transforming raw data into intelligent decisions — building systems that don't just compute, but understand.</p>
+        <p>I'm Asham Haider — a results-driven <strong>AI/ML Engineer</strong> (BSCS - AI Specialization, Semester 6) with a strong foundation in building production-ready intelligent systems. Certified by <strong>NAVTC (Corvit Systems)</strong>, I specialize in developing <strong>Generative AI (RAG)</strong> chatbots, <strong>Computer Vision</strong> applications, and <strong>Cybersecurity AI</strong> tools.</p>
+        <p>My expertise spans the full machine learning lifecycle — from data engineering and feature selection to model deployment using <strong>FastAPI</strong> and <strong>Streamlit</strong>. Driven by precision and innovation, I thrive on transforming complex data into scalable, intelligent decisions.</p>
         <div class="about-detail-grid">
           <div class="detail-item"><div class="detail-label">Date of Birth</div><div class="detail-val">21 Jan 2004</div></div>
           <div class="detail-item"><div class="detail-label">Nationality</div><div class="detail-val">Pakistani</div></div>
@@ -603,36 +630,32 @@ footer {
     <h2 class="section-title">My <em>Arsenal</em></h2>
     <div class="skills-grid">
       <div class="skill-category fade-in">
-        <div class="skill-cat-title">Core AI / ML</div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Python</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Machine Learning</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Deep Learning</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">NLP</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Computer Vision (OpenCV)</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" data-width="72"></div></div></div>
+        <div class="skill-cat-title">Artificial Intelligence & GenAI</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">RAG (Retrieval-Augmented Gen)</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">LLM Integration & Prompts</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">LangChain / Vector DBs</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">OpenAI / Grok / Gemini APIs</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
       </div>
       <div class="skill-category fade-in" style="transition-delay:0.1s">
-        <div class="skill-cat-title">Libraries & Frameworks</div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Scikit-learn</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Pandas / NumPy</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Matplotlib / Seaborn</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">TensorFlow</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" data-width="70"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Streamlit</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+        <div class="skill-cat-title">Machine Learning</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Scikit-learn / TensorFlow</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Anomaly Detection</span><span class="skill-pct">94%</span></div><div class="skill-bar"><div class="skill-fill" data-width="94"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Ensemble Methods</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Hyperparameter Tuning</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
       </div>
       <div class="skill-category fade-in" style="transition-delay:0.2s">
-        <div class="skill-cat-title">ML Techniques</div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Feature Engineering</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">EDA & Visualization</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Hyperparameter Tuning</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-width="82"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Statistical Analysis</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">SHAP Explainability</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+        <div class="skill-cat-title">Computer Vision & NLP</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">OpenCV / MediaPipe</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Facial Landmark Tracking</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">TF-IDF / Text Analysis</span><span class="skill-pct">87%</span></div><div class="skill-bar"><div class="skill-fill" data-width="87"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Real-time Processing</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
       </div>
       <div class="skill-category fade-in" style="transition-delay:0.3s">
-        <div class="skill-cat-title">Tools & Other</div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Git & GitHub</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">SQL & DBMS</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" data-width="72"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Jupyter / Anaconda</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">Prompt Engineering</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
-        <div class="skill-item"><div class="skill-row"><span class="skill-name">C++</span><span class="skill-pct">60%</span></div><div class="skill-bar"><div class="skill-fill" data-width="60"></div></div></div>
+        <div class="skill-cat-title">Frameworks & Tools</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">FastAPI / Streamlit</span><span class="skill-pct">94%</span></div><div class="skill-bar"><div class="skill-fill" data-width="94"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Python (Expert)</span><span class="skill-pct">98%</span></div><div class="skill-bar"><div class="skill-fill" data-width="98"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Git / GitHub / Docker</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">DBMS / SQL / Vector DB</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-width="82"></div></div></div>
       </div>
     </div>
   </div>
@@ -645,40 +668,69 @@ footer {
     <div class="section-eyebrow">Projects</div>
     <h2 class="section-title">What I've <em>Built</em></h2>
     <div class="projects-grid">
+      <!-- 01: Corvit AI Assistant -->
       <div class="project-card fade-in">
         <span class="project-num">01</span>
-        <div class="project-tag">ML · Regression · Finance</div>
-        <div class="project-title">Gold Rate Prediction System</div>
-        <p class="project-desc">End-to-end regression pipeline on 2,270 trading days of gold market data (2008–2018) using SPX, USO, SLV & EUR/USD as predictors. Engineered 10 features including 7-day & 21-day rolling averages, momentum indicators & SPX/SLV ratios. Compared 7 regression algorithms — Ridge Regression selected as best model via 5-Fold Cross-Validation. Applied SHAP explainability for model interpretation.</p>
+        <div class="project-tag">GenAI · RAG · LangChain</div>
+        <div class="project-title">Corvit AI Assistant</div>
+        <p class="project-desc">Professional RAG-based chatbot for institutional data retrieval. Implemented real-time token streaming, persistent chat history, and Role-Based Access Control (RBAC). Optimized for high-speed vector search and context-aware responses.</p>
         <div class="project-metrics">
-          <span class="metric">R² = 0.91</span><span class="metric">RMSE = 1.45</span><span class="metric">MAPE = 0.95%</span><span class="metric">Mean CV R² = 0.9475</span><span class="metric">GridSearchCV</span>
+          <span class="metric">LangChain</span><span class="metric">Vector DB</span><span class="metric">OpenAI API</span><span class="metric">Streamlit</span>
         </div>
       </div>
+
+      <!-- 02: CyberSentinel -->
       <div class="project-card fade-in" style="transition-delay:0.1s">
         <span class="project-num">02</span>
-        <div class="project-tag">Cybersecurity AI · Classification</div>
-        <div class="project-title">Network Intrusion Detection System</div>
-        <p class="project-desc">Preprocessed the NSL-KDD benchmark dataset (207 records, 41 features, 4 attack classes). Conducted EDA — identified key attack signatures including Neptune DoS and Portsweep patterns. Compared Logistic Regression vs. Random Forest (100 estimators). Validated on 3 unseen real-world traffic samples with 95–99% confidence — all correctly classified.</p>
+        <div class="project-tag">Cybersecurity · NLP</div>
+        <div class="project-title">CyberSentinel (Threat Intelligence)</div>
+        <p class="project-desc">Automated AI system to detect phishing and malicious network patterns using NLP techniques. Achieved high detection accuracy using Logistic Regression and TF-IDF vectorization on cybersecurity datasets.</p>
         <div class="project-metrics">
-          <span class="metric">97% Accuracy</span><span class="metric">Random Forest</span><span class="metric">NSL-KDD Dataset</span><span class="metric">F1-Score: 97%</span><span class="metric">4 Attack Classes</span>
+          <span class="metric">87.5% Accuracy</span><span class="metric">NLTK / SpaCy</span><span class="metric">Logistic Regression</span>
         </div>
       </div>
+
+      <!-- 03: AI Sleep Monitor -->
       <div class="project-card fade-in" style="transition-delay:0.2s">
         <span class="project-num">03</span>
-        <div class="project-tag">ML · Regression · Real Estate</div>
-        <div class="project-title">House Price Prediction System</div>
-        <p class="project-desc">Preprocessed a 1,000-record housing dataset (14 features) — handled 10% missing values via median/mode imputation, removed duplicates, and applied IQR-based outlier removal. Conducted EDA — identified area as dominant predictor (85.2% feature importance). Trained and compared 8 models including Gradient Boosting, Random Forest, SVR, and KNN. Tuned via GridSearchCV (5-fold CV).</p>
+        <div class="project-tag">Computer Vision · MediaPipe</div>
+        <div class="project-title">AI Sleep Monitor & Drowsiness Detector</div>
+        <p class="project-desc">Real-time computer vision system to detect driver fatigue. Implemented EAR (Eye Aspect Ratio) and MAR (Mouth Aspect Ratio) algorithms for precise blink and yawn detection. Optimized for 25+ FPS performance.</p>
         <div class="project-metrics">
-          <span class="metric">R² = 0.79</span><span class="metric">Gradient Boosting</span><span class="metric">MAE = 40,493</span><span class="metric">8 Models</span><span class="metric">RMSE = 74,844</span>
+          <span class="metric">95% Reliability</span><span class="metric">OpenCV</span><span class="metric">MediaPipe</span><span class="metric">25+ FPS</span>
         </div>
       </div>
+
+      <!-- 04: AI Fraud Detection -->
       <div class="project-card fade-in" style="transition-delay:0.3s">
         <span class="project-num">04</span>
-        <div class="project-tag">In Development · Deep Learning</div>
-        <div class="project-title">Next Project Loading...</div>
-        <p class="project-desc">Always building. Currently exploring advanced deep learning and NLP applications. New project in active development — stay tuned for updates on GitHub.</p>
+        <div class="project-tag">ML · Backend · FastAPI</div>
+        <div class="project-title">AI Fraud Detection System</div>
+        <p class="project-desc">End-to-end security layer for financial transactions. Deployed a scalable FastAPI REST API integrated with an ensemble of Random Forest and Isolation Forest models to detect real-time anomaly patterns.</p>
         <div class="project-metrics">
-          <span class="metric">Deep Learning</span><span class="metric">NLP</span><span class="metric">TensorFlow</span>
+          <span class="metric">94% Accuracy</span><span class="metric">FastAPI</span><span class="metric">Random Forest</span><span class="metric">Scikit-learn</span>
+        </div>
+      </div>
+
+      <!-- 05: Gold Rate Prediction -->
+      <div class="project-card fade-in" style="transition-delay:0.4s">
+        <span class="project-num">05</span>
+        <div class="project-tag">Regression · Finance</div>
+        <div class="project-title">Gold Rate Prediction System</div>
+        <p class="project-desc">Regression pipeline on 10 years of gold market data. Engineered rolling averages and momentum indicators. Ridge Regression selected as the best model via 5-Fold Cross-Validation.</p>
+        <div class="project-metrics">
+          <span class="metric">R² = 0.91</span><span class="metric">Ridge Regression</span><span class="metric">SHAP Explainability</span>
+        </div>
+      </div>
+
+      <!-- 06: NIDS -->
+      <div class="project-card fade-in" style="transition-delay:0.5s">
+        <span class="project-num">06</span>
+        <div class="project-tag">Cybersecurity AI · Classification</div>
+        <div class="project-title">Network Intrusion Detection (NIDS)</div>
+        <p class="project-desc">ML-based system to detect malicious network traffic. Trained on NSL-KDD benchmark dataset to identify Neptune DoS and Portsweep patterns with high confidence scores.</p>
+        <div class="project-metrics">
+          <span class="metric">97% Accuracy</span><span class="metric">Random Forest</span><span class="metric">NSL-KDD Dataset</span>
         </div>
       </div>
     </div>
@@ -752,6 +804,75 @@ function handleSend(btn) {
   btn.style.background = 'linear-gradient(135deg, #2a6a2a, #4caf50)';
   setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 3000);
 }
+
+// 3D BACKGROUND & TILT
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+  
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
+  camera.position.z = 600;
+
+  const count = 400;
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(count * 3);
+  for(let i=0; i<count*3; i++) positions[i] = (Math.random() - 0.5) * 2500;
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const material = new THREE.PointsMaterial({ 
+    color: 0x00e5ff, 
+    size: 5, 
+    transparent: true, 
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending 
+  });
+  const points = new THREE.Points(geometry, material);
+  scene.add(points);
+
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX - window.innerWidth / 2) * 0.05;
+    mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
+  });
+
+  function anim() {
+    requestAnimationFrame(anim);
+    points.rotation.y += 0.001;
+    points.rotation.x += 0.0005;
+    
+    camera.position.x += (mouseX - camera.position.x) * 0.05;
+    camera.position.y += (-mouseY - camera.position.y) * 0.05;
+    camera.lookAt(scene.position);
+    
+    renderer.render(scene, camera);
+  }
+  anim();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Simple Tilt
+  const tiltElements = document.querySelectorAll('.hero-card, .project-card, .skill-category, .contact-info, .contact-form');
+  tiltElements.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(1000px) rotateX(${y * -12}deg) rotateY(${x * 12}deg) translateY(-8px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+    });
+  });
+})();
 </script>
 </body>
 </html>
